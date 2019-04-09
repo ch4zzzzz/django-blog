@@ -1,0 +1,51 @@
+@charset "gb2312";
+
+* {
+	padding: 0;
+	font-size: 15px;
+	margin: 0 auto;
+}
+
+body {
+	width: 600px;
+	height: 600px;
+	margin: 0 auto;
+	align-items: center;
+	display: flex;
+    flex-wrap: wrap;
+}
+
+.login {
+	display: block;
+	width: 300px;
+	height: 400px;
+    margin: auto;
+    line-height: 50px;
+    text-align: center;
+    background-color: white;
+
+    align-items: center;
+	display: flex;
+    flex-wrap: wrap;
+
+}
+
+.slogan {
+	display: block;
+	font-size: 25px;
+	font-family: cursive;
+	float: left;
+
+}
+
+.login form {
+
+}
+
+.text-input {
+	border-radius: 12px;
+	padding-left: 6px;
+	outline: none;
+	color: transparent;
+	text-shadow: 0 0 0 black;
+}

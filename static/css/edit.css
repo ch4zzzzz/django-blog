@@ -1,0 +1,20 @@
+.container {
+  margin-top: 10px;
+}
+
+
+
+.info-add {
+  display: block;
+  max-width: 210px;
+}
+
+.info-add input {
+  max-width: 150px;
+}
+
+.info-add button {
+  display: block;
+  float: right;
+  margin-top: 3px;
+}

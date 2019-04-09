@@ -1,0 +1,16 @@
+.blogs {
+
+}
+
+.blogs > .blog {
+  margin-top: 50px;
+}
+
+.blog {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.blog > .content * {
+  font-size: 20px;
+}
