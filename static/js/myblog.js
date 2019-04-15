@@ -43,7 +43,8 @@ $(document).ready(function(){
       $self_intro.append(html);
   });
 
-  $.getJSON("/myblog/get_blogs/", function(jsonResult){
+  //博客
+  $.getJSON("/myblog/get_blog_list/", function(jsonResult){
       console.log(jsonResult);
       let data = jsonResult.data;
       let $blog_content = $('#blogs');
@@ -51,25 +52,27 @@ $(document).ready(function(){
       let html = "";
       $.each(data, function(i, obj){
         let md_text = obj.content;
+        let id = obj.id;
         let title = obj.title;
         let create_time = obj.create_time;
-        let html_text = converter.makeHtml(md_text);
         let div = `
-        <div class='blog'>
+        <div class='blog' id=${id}>
           <div class="blog-header">
             <a href="#"><h3>${title} ${time_transform(create_time)}</h3></a>
           </div>
-          <div class="content">${html_text}</div>
         </div>`.trim();
         // let div = "<div class='blog'>" + html_text + "</div>"
         html += div;
       });
       $blog_content.append(html);
 
+      $('.blog').click(function(){
+          const id = $(this).attr('id');
+          const target = `http://127.0.0.1:8000/myblog/blog=${id}/`
+          $(location).attr('href', target);
+      });
+
   });
 
-  // let converter = new showdown.Converter();
-  //   text = ;
-  //   html = converter.makeHtml(text);
 
 })

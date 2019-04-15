@@ -49,22 +49,70 @@ def edit_intro_add(request):
     return render(request, "edit.html")
 
 
-def get_blogs(request):
+# def get_blogs(request):
+#     if request.method == "GET":
+#         ret = {
+#             "status": 0,
+#             "msg": "",
+#             "data": [],
+#         }
+#         BlogPost = BlogPostDao.get()
+#
+#         for item in BlogPost:
+#             ret["data"].append({
+#                 "id": item.id,
+#                 "create_time": item.create_time,
+#                 "type": item.type,
+#                 "content": item.content,
+#                 "title": item.title,
+#             })
+#     return JsonResponse(ret)
+
+
+def get_blog_list(request):
     if request.method == "GET":
         ret = {
             "status": 0,
             "msg": "",
             "data": [],
         }
-        BlogPost = BlogPostDao.get()
+        BlogPost = BlogPostDao.getAll()
 
         for item in BlogPost:
             ret["data"].append({
+                "id": item.id,
                 "create_time": item.create_time,
                 "type": item.type,
-                "content": item.content,
                 "title": item.title,
             })
+    return JsonResponse(ret)
+
+
+# 博文页
+def blog_post(request, id):
+    ret = {
+        "status": 1,
+        "msg": "wrong",
+    }
+    blog = BlogPostDao.getBlogById(id)
+    if blog:
+        ret["status"] = 0
+        ret["msg"] = "success"
+        return render(request, 'blog-post.html', {"blog": blog})
+    return JsonResponse(ret)
+
+
+def get_blog(request, id):
+    ret = {
+        "status": 1,
+        "msg": "wrong",
+    }
+    blog = BlogPostDao.getBlogById(id)
+    if blog:
+        ret["status"] = 0
+        ret["msg"] = "success"
+        ret["blog"] = blog
+        JsonResponse(ret)
     return JsonResponse(ret)
 
 
@@ -90,3 +138,7 @@ def try_login(request):
             ret["msg"] = "用户名密码错误"
         return JsonResponse(ret)
     return render(request, "login.html")
+
+
+def test(request):
+    return render(request, "test.html")
