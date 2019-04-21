@@ -1,0 +1,12 @@
+.blogs {
+
+}
+
+.blogs > .blog {
+  margin-top: 0px;
+}
+
+.blog {
+  max-height: 300px;
+  overflow: hidden;
+}

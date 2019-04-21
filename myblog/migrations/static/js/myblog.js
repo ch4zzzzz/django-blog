@@ -48,17 +48,17 @@ $(document).ready(function(){
       console.log(jsonResult);
       let data = jsonResult.data;
       let $blog_content = $('#blogs');
-      // let converter = new showdown.Converter();
+      let converter = new showdown.Converter();
       let html = "";
       $.each(data, function(i, obj){
-        // let md_text = obj.content;
+        let md_text = obj.content;
         let id = obj.id;
         let title = obj.title;
         let create_time = obj.create_time;
         let div = `
         <div class='blog' id=${id}>
           <div class="blog-header">
-            <a href="#"><h3>${title} ${time_transform(create_time)}</h3></a>
+            <a href=""><h3>${title} ${time_transform(create_time)}</h3></a>
           </div>
         </div>`.trim();
         // let div = "<div class='blog'>" + html_text + "</div>"
@@ -70,7 +70,9 @@ $(document).ready(function(){
           const id = $(this).attr('id');
           const target = `http://127.0.0.1:8000/myblog/blog=${id}/`
           $(location).attr('href', target);
+          return false;
       });
+
   });
 
 

@@ -1,9 +1,3 @@
-.container {
-  margin-top: 10px;
-}
-
-
-
 .info-add {
   display: block;
   max-width: 210px;
@@ -17,4 +11,40 @@
   display: block;
   float: right;
   margin-top: 3px;
+}
+
+#blog-list > li {
+  margin-top: 10px;
+}
+
+#blog-list > li > h3 {
+  display: inline;
+}
+
+#blog-list > li > .options {
+  display: inline-block;
+  float: right;
+}
+
+#blog-edit-tab #edit-textarea {
+  font-size: 20px;
+  width: 100%;
+  height: 400px;
+  resize: none;
+}
+
+#blog-edit-tab .edit-form button {
+  margin-top: 3px;
+  margin-left: 3px;
+  display: block;
+  float: right;
+}
+
+#blog-edit-tab .select {
+  width: auto;
+  display: inline-block;
+}
+
+#blog-edit-tab .select-right {
+  float: right;
 }

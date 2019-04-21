@@ -4,7 +4,7 @@ from myblog import models
 
 
 class BlogPostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'type', 'create_time')
+    list_display = ('title', 'id', 'type', 'create_time')
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -12,7 +12,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class SelfIntroAdmin(admin.ModelAdmin):
-    list_display = ('name', 'content')
+    list_display = ('id', 'name', 'content')
 
 
 admin.site.register(models.User, UserAdmin)

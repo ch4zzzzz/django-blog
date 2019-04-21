@@ -10,6 +10,7 @@ class User(models.Model):
 
 
 class SelfIntro(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20, verbose_name="介绍项名")
     content = models.CharField(max_length=20, verbose_name="介绍内容")
     create_time = models.DateTimeField(auto_now_add=True)
@@ -24,7 +25,7 @@ class SelfIntro(models.Model):
 
 class BlogPost(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     type = models.CharField(max_length=10, verbose_name="博客类型")  # mini(微博), html, md
     content = models.TextField(default="text", verbose_name="博文内容")
     title = models.CharField(max_length=30, verbose_name="题目")

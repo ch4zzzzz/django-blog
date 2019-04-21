@@ -1,0 +1,27 @@
+.info-add {
+  display: block;
+  max-width: 210px;
+}
+
+.info-add input {
+  max-width: 150px;
+}
+
+.info-add button {
+  display: block;
+  float: right;
+  margin-top: 3px;
+}
+
+.blog-header h3 {
+  display: inline;
+}
+
+.blog-options {
+  display: block;
+  float: right;
+}
+
+.blog-option {
+
+}

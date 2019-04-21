@@ -6,7 +6,6 @@ import json
 from myblog.dao import SelfIntroDao, BlogPostDao
 
 
-
 def home(request):
     return render(request, 'myblog.html')
 
@@ -26,7 +25,6 @@ def self_intro(request):
         SelfIntro = SelfIntroDao.get()
         for item in SelfIntro:
             ret["data"][item.name] = item.content
-
         ret["msg"] = "success"
         return JsonResponse(ret)
     return render(request, "edit.html")
@@ -70,12 +68,13 @@ def edit_intro_add(request):
 
 
 def get_blog_list(request):
+    ret = {
+        "status": 1,
+        "msg": "fail",
+        "data": [],
+    }
     if request.method == "GET":
-        ret = {
-            "status": 0,
-            "msg": "",
-            "data": [],
-        }
+
         BlogPost = BlogPostDao.getAll()
 
         for item in BlogPost:
@@ -85,6 +84,8 @@ def get_blog_list(request):
                 "type": item.type,
                 "title": item.title,
             })
+        ret["status"] = 0
+        ret["msg"] = "success"
     return JsonResponse(ret)
 
 
@@ -113,6 +114,32 @@ def get_blog(request, id):
         ret["msg"] = "success"
         ret["blog"] = blog
         JsonResponse(ret)
+    return JsonResponse(ret)
+
+
+def save_blog(request):
+    ret = {"status": 1, "msg": "wrong"}
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data['id']
+        title = data['title']
+        content = data['content']
+        type = data['type']
+        if(id=='null'):
+            DAO_ret = BlogPostDao.create(title, content, type)
+            if DAO_ret==True:
+                ret["status"] = 0
+                ret["msg"] = "博文创建完成"
+            else:
+                ret["msg"] = "创建记录失败"
+        else:
+            DAO_ret = BlogPostDao.updateContent(id, content)
+            if DAO_ret == True:
+                ret["status"] = 0
+                ret["msg"] = "博文已更新"
+            else:
+                ret["msg"] = "该博客不存在"
+
     return JsonResponse(ret)
 
 
