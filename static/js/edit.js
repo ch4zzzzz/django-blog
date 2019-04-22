@@ -107,9 +107,12 @@ $(document).ready(function(){
         let data = jsonResult.data;
         let $blog_list = $('#blog-list');
         let html = "";
+        let rawHtml = str => {
+          return str.replace('>', '&gt;').replace('<', '&lt;');
+        }
         $.each(data, function(i, obj){
           let id = obj.id;
-          let title = obj.title;
+          let title = rawHtml(obj.title);
           let create_time = obj.create_time;
           let div = `
           <li id="${id}"><h3>${title} ${time_transform(create_time)}</h3>
@@ -130,8 +133,8 @@ $(document).ready(function(){
           const target = `http://127.0.0.1:8000/myblog/get_blog=${id}/`;
 
           $.getJSON(target, function(jsonResult){
-            let title = jsonResult.blog.title;
-            let blog_content = jsonResult.blog.content;
+            let title = rawHtml(jsonResult.blog.title);
+            let blog_content = rawHtml(jsonResult.blog.content);
             let create_time = jsonResult.blog.create_time;
             let converter = new showdown.Converter();
             let md_text = blog_content.trim()

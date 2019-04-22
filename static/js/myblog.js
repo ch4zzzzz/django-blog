@@ -50,10 +50,13 @@ $(document).ready(function(){
       let $blog_content = $('#blogs');
       // let converter = new showdown.Converter();
       let html = "";
+      let rawHtml = str => {
+        return str.replace('>', '&gt;').replace('<', '&lt;');
+      }
       $.each(data, function(i, obj){
-        // let md_text = obj.content;
         let id = obj.id;
-        let title = obj.title;
+        let title = rawHtml(obj.title);
+        console.log(title);
         let create_time = obj.create_time;
         let div = `
         <div class='blog' id=${id}>
