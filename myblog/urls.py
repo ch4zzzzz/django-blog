@@ -14,5 +14,6 @@ urlpatterns = [
     re_path(r'^blog=(?P<id>[0-9]+)/$', views.blog_post),  # 读取某个博客
     re_path(r'^get_blog=(?P<id>[0-9]+)/$', views.get_blog),  # 读取某个博客
     re_path(r'^save_blog/$', views.save_blog),  # 保存博客
+    re_path(r'^delete_blog/$', views.delete_blog),  # 删除博客
     re_path(r'^test/$', views.test),
 ]

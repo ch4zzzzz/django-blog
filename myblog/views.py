@@ -127,20 +127,42 @@ def save_blog(request):
         type = data['type']
         if(id=='null'):
             DAO_ret = BlogPostDao.create(title, content, type)
-            if DAO_ret==True:
+            if DAO_ret["success"]:
                 ret["status"] = 0
                 ret["msg"] = "博文创建完成"
+                ret["id"] = DAO_ret["id"]
             else:
                 ret["msg"] = "创建记录失败"
         else:
             DAO_ret = BlogPostDao.updateContent(id, content)
-            if DAO_ret == True:
+            if DAO_ret["success"]:
                 ret["status"] = 0
                 ret["msg"] = "博文已更新"
+                ret["id"] = DAO_ret["id"]
             else:
                 ret["msg"] = "该博客不存在"
 
     return JsonResponse(ret)
+
+
+def delete_blog(request):
+    ret = {
+        "status": 1,
+        "msg": "wrong",
+    }
+    if request.method == "POST":
+        data = json.loads(request.body)
+        id = data["id"]  # id是一个id数组
+        DAORet = BlogPostDao.delete(id)
+        if len(DAORet["wrongID"]) > 0:
+            ret["wrongID"] = DAORet["wrongID"]
+            ret["status"] = 2
+            ret["msg"] = "warning"
+        else:
+            ret["status"] = 0
+            ret["msg"] = "success"
+    return JsonResponse(ret)
+
 
 
 def login(request):

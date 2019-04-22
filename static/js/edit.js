@@ -101,7 +101,7 @@ $(document).ready(function(){
       return false;
     });
 
-    //博客
+    // 博客列表
     $.getJSON("/myblog/get_blog_list/", function(jsonResult){
         // console.log(jsonResult);
         let data = jsonResult.data;
@@ -115,10 +115,15 @@ $(document).ready(function(){
           let title = rawHtml(obj.title);
           let create_time = obj.create_time;
           let div = `
-          <li id="${id}"><h3>${title} ${time_transform(create_time)}</h3>
+          <li id="${id}" class="blog">
+            <input class="check-blog-input check-hidden-part" type="checkbox" name='checkbox${id}' id='checkbox${id}'  hidden="hidden">
+            <label for='checkbox${id}'>
+              <h3>&nbsp;${title} <small>${time_transform(create_time)}</small></h3>
+            </label>
             <span class="options">
               <a class="read" href="#">查看</a>
               <a class="edit" href="#">修改</a>
+              <a class="delete" href="#">删除</a>
             </span>
           </li>
           `.trim();
@@ -157,9 +162,49 @@ $(document).ready(function(){
 
           return false;
         });
+
+
+        // 修改博客
+        $('#blog-list>li>.options>.edit').click(function(){
+
+          return false;
+        });
+
+        // 删除博客
+        $('#blog-list>li>.options>.delete').click(function(){
+          const id = $(this).parent().parent().attr('id');
+          delete_blog(id);
+          return false;
+        });
+
+        // 显示复选框
+        $('#check-blogs').click(function(){
+          $('#blog-list .check-hidden-part').fadeToggle();
+          return false;
+        });
+
+        //批量删除
+        $('#delete-blogs').click(function(){
+          let $checkedBlog = $(`#blog-list .check-blog-input[type='checkbox']:checked`);
+          let id = new Array();
+          for(let i=0, len=$checkedBlog.length;i<len;i++){
+            id.push($checkedBlog[i].id.slice(8));
+          }
+          delete_blog(...id);
+          return false;
+        });
+
+        // 全选
+        let checkAll = false;
+        $('#check-all-blog').click(function(){
+          checkAll = !checkAll
+          $('.check-blog-input').prop('checked', checkAll);
+
+          return false;
+        });
     });
 
-    //保存博文
+    // 保存博文
     $('#save-blog').click(function(){
       let blog_id = $('#blog-id').val();
       let title = $('#blog-title').val();
@@ -187,7 +232,9 @@ $(document).ready(function(){
             if(!jsonResult.status){
               $('#blog-title').val("");
               $('#edit-textarea').val("");
-              $('#tab-menu li:eq(1)').click();
+
+              let target = `http://127.0.0.1:8000/myblog/blog=${jsonResult.id}`;
+              $(location).attr('href', target);
             }
 
           }
@@ -196,5 +243,37 @@ $(document).ready(function(){
       }
       return false;
     });
+
+
+    //删除博客的函数
+    let delete_blog = function(...id){
+      if(id.length==0){
+        alert("未选择任何博文");
+        return;
+      }
+      const target = `http://127.0.0.1:8000/myblog/delete_blog/`;
+      $.ajax({
+        type: "POST",
+        url: target,
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          "id": id,
+        }),
+
+        success: function(jsonResult){
+
+          if(!jsonResult.status){
+              alert("成功删除");
+              for(let i=0, len=id.length;i<len;i++){
+                $(`#blog-list li[id=${id[i]}]`).slideUp();
+              }
+          }
+          else{
+            alert("删除失败,请刷新页面后重试");
+          }
+        }
+      });
+    }
 
 })

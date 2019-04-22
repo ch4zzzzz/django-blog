@@ -17,8 +17,8 @@
   margin-top: 10px;
 }
 
-#blog-list > li > h3 {
-  display: inline;
+#blog-list > li  h3 {
+    display: inline;
 }
 
 #blog-list > li > .options {
