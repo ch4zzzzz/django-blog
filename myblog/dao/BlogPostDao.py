@@ -32,6 +32,8 @@ def create(title, content, type):
         lastBlog = models.BlogPost.objects.last()
         if lastBlog:
             id = lastBlog.id + 1
+        else:
+            id = 1
         blog = models.BlogPost(id=id, type=type, content=content, title=title)
         blog.save()
         ret["success"] = True

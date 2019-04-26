@@ -121,9 +121,9 @@ $(document).ready(function(){
               <h3>&nbsp;${title} <small>${time_transform(create_time)}</small></h3>
             </label>
             <span class="options">
-              <a class="read" href="#">查看</a>
-              <a class="edit" href="#">修改</a>
-              <a class="delete" href="#">删除</a>
+              <a class="read check-hidden-part" href="#">查看</a>
+              <a class="edit check-hidden-part" href="#">修改</a>
+              <a class="delete check-hidden-part" href="#">删除</a>
             </span>
           </li>
           `.trim();
