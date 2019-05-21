@@ -6,3 +6,4 @@ env/
 .idea/workspace.xml
 .idea/misc.xml
 .idea/blog.iml
+myblog/migrations/
